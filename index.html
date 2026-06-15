@@ -55,6 +55,60 @@
     .exp-inline > div { padding-left: 14px !important; padding-right: 14px !important; }
     .exp-drawerwrap { display: none; }
   }
+
+  /* ===================== RESPONSIVE: phones & small tablets ===================== */
+  @media (max-width: 760px) {
+    /* collapse each notebook cell from "86px gutter + content" to a single
+       full-width column so nothing is clipped by the window's overflow */
+    #nb-hero, #nb-about, #nb-skills, #nb-education,
+    #nb-experience, #nb-projects, #nb-contact {
+      grid-template-columns: minmax(0, 1fr) !important;
+    }
+    /* trim side padding and let every cell child shrink (prevents grid blowout) */
+    #nb-hero > div, #nb-about > div, #nb-skills > div, #nb-education > div,
+    #nb-experience > div, #nb-projects > div, #nb-contact > div {
+      padding-left: 18px !important;
+      padding-right: 18px !important;
+      min-width: 0;
+    }
+    /* In [n]: gutter label (first child) now sits above its cell content */
+    #nb-hero > div:first-child, #nb-about > div:first-child, #nb-skills > div:first-child,
+    #nb-education > div:first-child, #nb-experience > div:first-child,
+    #nb-projects > div:first-child, #nb-contact > div:first-child {
+      padding-top: 20px !important;
+      padding-bottom: 2px !important;
+    }
+    /* Out [n]: label (third child, where present) */
+    #nb-skills > div:nth-child(3), #nb-education > div:nth-child(3),
+    #nb-experience > div:nth-child(3), #nb-projects > div:nth-child(3),
+    #nb-contact > div:nth-child(3) {
+      padding-top: 12px !important;
+    }
+    /* hero thesis: smaller type + fixed height sized for phone wrapping (no bob) */
+    #nb-hero h1 {
+      font-size: clamp(20px, 5.6vw, 28px) !important;
+      height: 3.6em !important;
+    }
+    /* skills: stack the cards into one column */
+    #nb-skills > div:nth-child(4) > div {
+      grid-template-columns: 1fr !important;
+    }
+    /* education: narrower year rail + tighter padding so the year never clips */
+    #nb-education div[style*="grid-template-columns: 134px"] {
+      grid-template-columns: 100px 1fr !important;
+    }
+    #nb-education div[style*="grid-template-columns: 134px"] > div {
+      padding: 20px 14px !important;
+    }
+    /* contact: tighter card padding */
+    #nb-contact > div:nth-child(4) > div {
+      padding: 24px 20px !important;
+    }
+    /* status bar may wrap on very narrow screens */
+    #revealed > div:last-child {
+      flex-wrap: wrap;
+    }
+  }
 </style>
 </head>
 <body>
@@ -65,12 +119,12 @@
   <div style="max-width: 1080px; margin: 0 auto; border-radius: 16px; overflow: hidden; box-shadow: 0 40px 80px -32px rgba(40,30,60,0.4); border: 1px solid #e0dfe3; background: #fbfbfa;">
 
     <!-- window chrome -->
-    <div style="display: flex; align-items: center; gap: 9px; padding: 14px 20px; border-bottom: 1px solid #ececef; background: #f4f4f3; position: sticky; top: 0; z-index: 5;">
+    <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 9px; padding: 14px 20px; border-bottom: 1px solid #ececef; background: #f4f4f3; position: sticky; top: 0; z-index: 5;">
       <span style="width: 12px; height: 12px; border-radius: 50%; background: #e06c6c;"></span>
       <span style="width: 12px; height: 12px; border-radius: 50%; background: #e0bb5c;"></span>
       <span style="width: 12px; height: 12px; border-radius: 50%; background: #6cc06c;"></span>
       <span style="margin-left: 14px; font-size: 12.5px; color: #6a6873;">amy_fang.ipynb</span>
-      <span style="margin-left: auto; display: inline-flex; align-items: center; gap: 7px; font-size: 11.5px; color: #8a8892;"><span id="kernel-dot" style="width: 8px; height: 8px; border-radius: 50%; background: #9a9aa0; animation: nbPulse 2.4s ease-in-out infinite;"></span><span id="py-label">Python 3 · ready</span></span>
+      <span style="margin-left: auto; display: inline-flex; align-items: center; gap: 7px; font-size: 11.5px; color: #8a8892;"><span id="kernel-dot" style="width: 8px; height: 8px; border-radius: 50%; background: #9a9aa0; animation: nbPulse 2.4s ease-in-out infinite;"></span><span id="py-label" style="white-space: nowrap;">Python 3 · ready</span></span>
     </div>
 
     <!-- nav tabs -->
@@ -84,7 +138,7 @@
     </div>
 
     <!-- ============ CELL 1 · HERO ============ -->
-    <div style="display: grid; grid-template-columns: 86px 1fr; border-bottom: 1px solid #f0f0f2;">
+    <div id="nb-hero" style="display: grid; grid-template-columns: 86px 1fr; border-bottom: 1px solid #f0f0f2;">
       <div style="padding: 32px 0 0 18px; font-size: 12.5px; color: #2f6ad0;">In [1]:</div>
       <div style="padding: 30px 32px 36px;">
         <div style="font-size: 14px; line-height: 2; color: #2b2b33;">
