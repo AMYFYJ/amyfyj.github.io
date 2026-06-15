@@ -109,6 +109,16 @@
       flex-wrap: wrap;
     }
   }
+
+  /* keep the window chrome to a single ~44px line on phones (so a section
+     heading scrolled under the sticky bar is never hidden behind it) */
+  @media (max-width: 480px) {
+    #nb-filename { display: none; }
+    /* contact links wrap cleanly on narrow phones — drop the dividers so no
+       dangling separator is left at the end of a wrapped line */
+    .contact-sep { display: none; }
+    #nb-contact .contact-link { margin-right: 4px; }
+  }
 </style>
 </head>
 <body>
@@ -123,7 +133,7 @@
       <span style="width: 12px; height: 12px; border-radius: 50%; background: #e06c6c;"></span>
       <span style="width: 12px; height: 12px; border-radius: 50%; background: #e0bb5c;"></span>
       <span style="width: 12px; height: 12px; border-radius: 50%; background: #6cc06c;"></span>
-      <span style="margin-left: 14px; font-size: 12.5px; color: #6a6873;">amy_fang.ipynb</span>
+      <span id="nb-filename" style="margin-left: 14px; font-size: 12.5px; color: #6a6873;">amy_fang.ipynb</span>
       <span style="margin-left: auto; display: inline-flex; align-items: center; gap: 7px; font-size: 11.5px; color: #8a8892;"><span id="kernel-dot" style="width: 8px; height: 8px; border-radius: 50%; background: #9a9aa0; animation: nbPulse 2.4s ease-in-out infinite;"></span><span id="py-label" style="white-space: nowrap;">Python 3 · ready</span></span>
     </div>
 
