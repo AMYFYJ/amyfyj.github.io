@@ -436,11 +436,24 @@
     running: false,
     showConsole: false,
     logs: [],
+    extra: [],
+    runCount: 1,
     kernel: "ready",
     revealed: false,
     openRole: null,
     lastRole: null
   };
+
+  // rotating output printed when amy.run() is clicked again after reveal
+  var encore = [
+    "👋 thanks for the curiosity — poke around!",
+    "fun fact: one craft from four — data · cognition · business · music",
+    "tip: tap any row in # experience to inspect the full entry",
+    "still shipping ML · M.S.E. Data Science @ UPenn",
+    "🎵 off-hours: running a music & creativity club at Penn",
+    "tip: the links in # whoami are live — say hi",
+    "kernel's warm ☕ — explore away"
+  ];
 
   var theses = [
     "I build intelligent systems where ML meets human cognition.",
@@ -525,7 +538,7 @@
   // ---------- console ----------
   function renderConsole() {
     $("console").style.display = state.showConsole ? "block" : "none";
-    $("console-logs").innerHTML = state.logs.map(function (l) {
+    $("console-logs").innerHTML = state.logs.concat(state.extra).map(function (l) {
       return '<div style="white-space: nowrap;"><span style="color: #6f6c80; margin-right: 12px;">' +
         esc(l.t) + "</span>" + esc(l.text) + "</div>";
     }).join("");
@@ -698,7 +711,8 @@
       return;
     }
     if (state.revealed) {
-      if (targetId) jumpTo(targetId);
+      if (targetId) { jumpTo(targetId); return; }
+      rerun();
       return;
     }
     state.running = true;
@@ -736,6 +750,25 @@
       await wait(80);
       jumpTo(targetId, true);
     }
+  }
+
+  // re-clicking amy.run() after reveal: quick "execution" + a fresh Out line
+  async function rerun() {
+    if (state.running) return;
+    state.running = true;
+    state.kernel = "running";
+    renderRunButton();
+    renderKernel();
+    renderConsole();
+    await wait(450);
+    state.runCount += 1;
+    state.extra.push({ t: "[run #" + state.runCount + "]", text: encore[(state.runCount - 2) % encore.length] });
+    if (state.extra.length > 5) state.extra = state.extra.slice(-5);
+    state.running = false;
+    state.kernel = "executed";
+    renderRunButton();
+    renderKernel();
+    renderConsole();
   }
 
   function jumpTo(id, retry) {
