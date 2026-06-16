@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Amy Fang">
+  <title>Amy Fang</title>
+  <!-- notebook-paper tile -->
+  <rect x="1" y="1" width="30" height="30" rx="7.5" fill="#fbfbfa" stroke="#e0d8f3" stroke-width="1.5"/>
+  <!-- [ A ]  — cell prompt brackets in brand purple, the identifier "A" in deep purple -->
+  <g fill="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M11 8 H8 V24 H11" stroke="#8b3fd6"/>
+    <path d="M21 8 H24 V24 H21" stroke="#8b3fd6"/>
+    <path d="M12.7 24 L16 8.5 L19.3 24 M13.85 18.5 H18.15" stroke="#6b2bb0"/>
+  </g>
+</svg>
