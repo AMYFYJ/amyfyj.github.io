@@ -1,11 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Amy Fang">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 215.51 215.51" role="img" aria-label="Amy Fang">
   <title>Amy Fang</title>
-  <!-- notebook-paper tile -->
-  <rect x="1" y="1" width="30" height="30" rx="8" fill="#fbfbfa" stroke="#dfe6f2" stroke-width="1.5"/>
-  <!-- [ A ] — cell-prompt brackets in notebook blue, identifier "A" in ink; lean equal-weight strokes -->
-  <g fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M10 8.5 H7 V23.5 H10" stroke="#2f6ad0"/>
-    <path d="M22 8.5 H25 V23.5 H22" stroke="#2f6ad0"/>
-    <path d="M11.2 22.6 L16 9.6 L20.8 22.6 M12.95 18 H19.05" stroke="#1c2230"/>
-  </g>
+  <style>
+    .b{fill:#adc6f0}.a{fill:#2f6ad0}
+    @media (prefers-color-scheme: dark){.b{fill:#3f5e8f}.a{fill:#6f9bef}}
+  </style><g transform="translate(34.48,107.76)"><g class="b"><path transform="translate(-25.63,45.00)" d="M56.25 13.75L25.63 13.75L25.63-103.75L56.25-103.75L56.25-93.75L36.88-93.75L36.88 3.75L56.25 3.75"/><path transform="translate(97.18,45.00)" d="M49.38 13.75L18.75 13.75L18.75 3.75L38.13 3.75L38.13-93.75L18.75-93.75L18.75-103.75L49.38-103.75"/></g><g class="a"><path transform="translate(41.63,35.00)" d="M14.40 0L2 0L21.20-70L42.10-70L61.30 0L48.90 0L44.70-16L18.60-16L14.40 0M30.80-62.50L21.40-27L41.90-27L32.50-62.50"/></g></g>
 </svg>
