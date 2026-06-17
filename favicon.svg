@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 153.56 153.56" role="img" aria-label="Amy Fang">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 157.00 157.00" role="img" aria-label="Amy Fang">
   <title>Amy Fang</title>
   <style>
-    .m{fill:#8b3fd6}
-    @media (prefers-color-scheme: dark){.m{fill:#b98af0}}
+    .a{fill:#1c2230}.b{fill:#2f6ad0}
+    @media (prefers-color-scheme: dark){.a{fill:#e8ebf2}.b{fill:#6f9bef}}
   </style>
-  <path class="m" d="M39.88 130.83L7.68 130.83L7.68 22.73L39.88 22.73L39.88 35.95L22.05 35.95L22.05 117.60L39.88 117.60"/>
-  <path class="m" d="M60.48 111.78L46.88 111.78L65.28 41.78L88.28 41.78L106.68 111.78L93.08 111.78L89.28 96.38L64.28 96.38L60.48 111.78M75.88 50.08L67.38 84.18L86.18 84.18L77.68 50.08"/>
-  <path class="m" d="M145.88 130.83L113.68 130.83L113.68 117.60L131.50 117.60L131.50 35.95L113.68 35.95L113.68 22.73L145.88 22.73"/>
+  <path class="b" d="M40.60 137.25L7.85 137.25L7.85 19.75L40.60 19.75L40.60 32L21.22 32L21.22 125L40.60 125"/>
+  <path class="a" d="M62.20 113.50L48.60 113.50L67 43.50L90 43.50L108.40 113.50L94.80 113.50L91 98.10L66 98.10L62.20 113.50M77.60 51.80L69.10 85.90L87.90 85.90L79.40 51.80"/>
+  <path class="b" d="M149.15 137.25L116.40 137.25L116.40 125L135.78 125L135.78 32L116.40 32L116.40 19.75L149.15 19.75"/>
 </svg>
