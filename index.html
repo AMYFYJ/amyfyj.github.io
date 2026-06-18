@@ -24,6 +24,8 @@
   @keyframes nbSpin { to { transform: rotate(360deg); } }
   @keyframes nbLogIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes nbBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+  /* caret is solid while typing/deleting; only blinks when the line is at rest */
+  #thesis-text.nb-caret-rest { animation: nbCaretBorder 1.1s step-end infinite; }
   .nb-row { transition: background 0.18s ease; }
   .nb-row:hover { background: #f0eefb !important; }
   .nb-link { transition: color 0.18s ease, background 0.18s ease; }
@@ -167,7 +169,7 @@
         </div>
         <div style="margin-top: 22px;">
           <div style="font-size: 13px; color: #9a97a8; margin-bottom: 10px;"># the thesis</div>
-          <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(30px, 4.6vw, 52px); line-height: 1.12; font-weight: 700; letter-spacing: -0.02em; color: #1c1c22; max-width: 760px; height: 3.36em; overflow: hidden; display: block;"><span id="thesis-text" style="border-right: 4px solid #8b3fd6; padding-right: 4px; animation: nbCaretBorder 1.1s step-end infinite;"></span></h1>
+          <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(30px, 4.6vw, 52px); line-height: 1.12; font-weight: 700; letter-spacing: -0.02em; color: #1c1c22; max-width: 760px; height: 3.36em; overflow: hidden; display: block;"><span id="thesis-text" class="nb-caret-rest" style="border-right: 4px solid #8b3fd6; padding-right: 4px;"></span></h1>
         </div>
         <div style="margin-top: 24px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
           <div id="run-btn" role="button" tabindex="0" class="nb-btn" style="user-select: none; cursor: pointer; display: inline-flex; align-items: center; gap: 9px; background: #1c1c22; color: #fbfbfa; padding: 12px 24px; border-radius: 9px; font-size: 13px; font-family: 'JetBrains Mono', monospace; font-weight: 700; letter-spacing: 0.02em;"><span style="letter-spacing: 0.06em;">amy.run()</span><span id="run-spinner" style="display: none; width: 11px; height: 11px; border: 2px solid rgba(255,255,255,0.28); border-top-color: #8a9cff; border-radius: 50%; animation: nbSpin 0.7s linear infinite;"></span><span id="run-triangle" style="display: inline-block; width: 0; height: 0; border-left: 8px solid #8a9cff; border-top: 5px solid transparent; border-bottom: 5px solid transparent; margin-left: 1px;"></span></div>
@@ -674,20 +676,39 @@
   }
 
   // ---------- typewriter thesis ----------
+  // A constantly-blinking caret reads as a "hiccup" the instant a sentence
+  // finishes, so the caret is held SOLID while characters stream in or out and
+  // only blinks while the line is genuinely at rest.
   function setThesis(text) {
     state.thesisText = text;
     $("thesis-text").textContent = text;
   }
 
+  function caretRest(on) {
+    $("thesis-text").classList.toggle("nb-caret-rest", on);
+  }
+
+  // Gentle human cadence: small per-key jitter, with a longer beat after
+  // punctuation so the line reads rather than machine-guns.
+  function typeDelay(prevChar) {
+    var base = 30 + Math.random() * 26;          // ~30–56ms per character
+    if (prevChar === "," || prevChar === "&") return base + 120;
+    if (prevChar === ".") return base + 180;
+    return base;
+  }
+
   function typeIn() {
     var full = theses[thesisIndex];
     var n = 1;
+    caretRest(false);                            // solid caret while typing
     function step() {
       if (n <= full.length) {
         setThesis(full.slice(0, n));
+        var prev = full.charAt(n - 1);
         n++;
-        timers.push(setTimeout(step, 34));
+        timers.push(setTimeout(step, typeDelay(prev)));
       } else {
+        caretRest(true);                         // settle: caret blinks as it holds
         timers.push(setTimeout(typeOut, 7000));
       }
     }
@@ -697,14 +718,18 @@
   function typeOut() {
     var full = theses[thesisIndex];
     var n = full.length;
+    caretRest(false);                            // solid caret while erasing
     function step() {
       if (n >= 0) {
         setThesis(full.slice(0, n));
         n--;
-        timers.push(setTimeout(step, 18));
+        // ease the erase: deliberate at first, quicker as the line empties
+        var d = 26 - Math.min(13, (full.length - n) * 0.4);
+        timers.push(setTimeout(step, d));
       } else {
+        caretRest(true);                         // rest on an empty blinking caret
         thesisIndex = (thesisIndex + 1) % theses.length;
-        timers.push(setTimeout(typeIn, 350));
+        timers.push(setTimeout(typeIn, 650));
       }
     }
     step();
